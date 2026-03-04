@@ -1,18 +1,18 @@
-type Agent @entity {
+type Agent {
   id: ID!
   agentId: BigInt!
   owner: String!
+  agentURIRaw: String!
+  agentURIJson: String!
+  registration: Registration! @hasOne(field: "id")
   name: String
   description: String
-  email: String
-  web: String
   imageUrl: String
-  agentURIRaw: String
-  agentURIJson: String
-  registration: Registration!
+  web: String
+  email: String
 }
 
-type Registration @entity {
+type Registration {
   id: ID!
   chainId: String!
   active: Boolean!
@@ -20,23 +20,23 @@ type Registration @entity {
   updatedAt: BigInt!
   lastActivityAt: BigInt!
   agentWallet: String!
-  x402Support: Boolean
-  supportedTrust: [String!]
-  tags: [String!]
-  oasf_skills: [String!]
-  oasf_domains: [String!]
+  x402Support: Boolean!
+  supportedTrust: [String!]!
+  tags: [String!]!
+  oasf_skills: [String!]!
+  oasf_domains: [String!]!
   hasMCPServices: Boolean!
-  mcp: String
   hasOASFServices: Boolean!
-  oasf: String
   hasA2AServices: Boolean!
-  a2a: String
   hasX402ComputeServices: Boolean!
-  x402Compute: String
   hasWalletEndpoint: Boolean!
-  walletEndpoint: String
   hasExtraServices: Boolean!
-  rawServicesJson: String
   hasServiceIndexingError: Boolean!
-  registrationJsonRaw: String
+  registrationJsonRaw: String!
+  mcp: String
+  oasf: String
+  a2a: String
+  x402Compute: String
+  walletEndpoint: String
+  rawServicesJson: String
 }
