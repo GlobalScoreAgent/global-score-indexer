@@ -1,0 +1,64 @@
+{
+  "mainnet": {
+    "address": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "startBlock": 21805560,
+    "ormiDeployName": "erc-8004-agent-eth",
+    "status": "live"
+  },
+  "base": {
+    "address": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "startBlock": 41453265,
+    "ormiDeployName": "erc-8004-agent-base",
+    "status": "live"
+  },
+  "bsc": {
+    "address": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "startBlock": 46850000,
+    "ormiDeployName": "erc-8004-agent-bsc",
+    "status": "live"
+  },
+  "matic": {
+    "address": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "startBlock": 68450000,
+    "ormiDeployName": "erc-8004-agent-poly",
+    "status": "live"
+  },
+  "arbitrum-one": {
+    "address": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "startBlock": 245348700,
+    "ormiDeployName": "erc-8004-agent-arbitrum",
+    "status": "live"
+  },
+  "x-layer": {
+    "address": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "startBlock": null,
+    "ormiDeployName": "erc-8004-agent-xlayer",
+    "status": "pending",
+    "chainId": 196,
+    "priority": "alta"
+  },
+  "celo": {
+    "address": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "startBlock": null,
+    "ormiDeployName": "erc-8004-agent-celo",
+    "status": "pending",
+    "chainId": 42220,
+    "priority": "alta"
+  },
+  "gnosis": {
+    "address": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "startBlock": null,
+    "ormiDeployName": "erc-8004-agent-gnosis",
+    "status": "pending",
+    "chainId": 100,
+    "priority": "media-alta"
+  },
+  "optimism": {
+    "address": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "startBlock": null,
+    "ormiDeployName": "erc-8004-agent-optimism",
+    "status": "pending",
+    "chainId": 10,
+    "priority": "baja"
+  }
+}

@@ -1,42 +1,82 @@
-type Agent {
-  id: ID!
+type Agent @entity(immutable: false) {
+  id: ID! # network-agentId
   agentId: BigInt!
-  owner: String!
-  agentURIRaw: String!
-  agentURIJson: String!
-  registration: Registration! @hasOne(field: "id")
+  owner: Bytes!
   name: String
   description: String
-  imageUrl: String
-  web: String
   email: String
-}
-
-type Registration {
-  id: ID!
+  web: String
+  imageUrl: String
+  agentURIRaw: String
+  agentURIJson: String
+  
+  # --- DATOS DE REGISTRO ---
   chainId: String!
   active: Boolean!
   createdAt: BigInt!
   updatedAt: BigInt!
   lastActivityAt: BigInt!
-  agentWallet: String!
-  x402Support: Boolean!
-  supportedTrust: [String!]!
-  tags: [String!]!
-  oasf_skills: [String!]!
-  oasf_domains: [String!]!
+  agentWallet: Bytes!
+  x402Support: Boolean
+  
+  # --- CLASIFICACIÓN ---
+  supportedTrust: [String!]
+  tags: [String!]
+  oasf_skills: [String!]
+  oasf_domains: [String!]
+  
+  # --- SERVICIOS ---
   hasMCPServices: Boolean!
+  mcp: String 
   hasOASFServices: Boolean!
+  oasf: String 
   hasA2AServices: Boolean!
+  a2a: String 
   hasX402ComputeServices: Boolean!
+  x402Compute: String 
   hasWalletEndpoint: Boolean!
-  hasExtraServices: Boolean!
-  hasServiceIndexingError: Boolean!
-  registrationJsonRaw: String!
-  mcp: String
-  oasf: String
-  a2a: String
-  x402Compute: String
   walletEndpoint: String
+  hasExtraServices: Boolean!
+
+  # --- AUDITORÍA ---
   rawServicesJson: String
+  hasServiceIndexingError: Boolean!
+  registrationJsonRaw: String
+}
+
+type Feedback @entity(immutable: false) {
+  id: ID! # network-txHash-logIndex
+  agent: String! 
+  chainId: String! 
+  clientAddress: Bytes!
+  createdAt: BigInt!
+  value: BigInt!
+  feedbackIndex: BigInt!
+  feedbackURI: String
+  feedbackURIType: String
+  feedbackHash: Bytes
+  endpoint: String
+  tag1: String
+  tag2: String
+  isRevoked: Boolean!
+  revokedAt: BigInt
+  feedbackURIRaw: String 
+
+  # --- ANALÍTICA DE CONFIANZA Y RED (NUEVO v1.9.0) ---
+  txFrom: Bytes!          # Quién pagó el gas (útil para detectar Sybil/Bots)
+  txNonce: BigInt!        # Antigüedad/Actividad de la cuenta
+  gasPrice: BigInt!       # Costo del gas (Peso económico)
+  gasUsed: BigInt!        # Gas consumido exactamente
+  blockNumber: BigInt!    # Ubicación exacta en la cadena
+  logIndex: BigInt!       # Índice del evento en el bloque
+}
+
+type FeedbackResponse @entity(immutable: true) {
+  id: ID! 
+  feedback: String! 
+  responder: Bytes!
+  createdAt: BigInt!
+  responseUri: String
+  responseHash: Bytes
+  responseURIRaw: String
 }

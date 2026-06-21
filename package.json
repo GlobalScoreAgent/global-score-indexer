@@ -1,32 +1,28 @@
 {
   "name": "global-score-indexer",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "description": "ERC-8004 agent and reputation subgraph for Global Score Agent (Ormi 0xGraph)",
   "scripts": {
-    "clean": "tsc --clean",
-    "build": "tsc --build",
-    "watch": "tsc --watch",
-    "mocha": "ts-mocha test/**/*.ts",
-    "codegen": "envio codegen",
-    "dev": "envio dev",
-    "start": "envio start",
-    "test": "pnpm mocha"
-  },
-  "devDependencies": {
-    "@types/chai": "^4.3.11",    
-    "@types/mocha": "10.0.6",
-    "@types/node": "20.8.8",
-    "ts-mocha": "^10.0.0",
-    "typescript": "5.2.2",
-    "chai": "4.3.10",
-    "mocha": "10.2.0"
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "test": "graph test",
+    "deploy:ormi": "graph deploy --node https://subgraph.api.ormilabs.com/deploy --ipfs https://subgraph.api.ormilabs.com/ipfs --deploy-key %ORMI_DEPLOY_KEY%",
+    "create-local": "graph create --node http://localhost:8020/ erc-8004-agent",
+    "remove-local": "graph remove --node http://localhost:8020/ erc-8004-agent",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 erc-8004-agent"
   },
   "dependencies": {
-    "envio": "2.32.3"
+    "@graphprotocol/graph-cli": "^0.98.1",
+    "mustache": "^4.2.0"
   },
-  "optionalDependencies": {
-    "generated": "./generated"
+  "devDependencies": {
+    "@graphprotocol/graph-ts": "^0.38.2",
+    "assemblyscript": "^0.28.9",
+    "matchstick-as": "0.6.0"
   },
-  "engines": {
-    "node": ">=18.0.0"
-  }
+  "directories": {
+    "test": "tests"
+  },
+  "type": "commonjs"
 }
