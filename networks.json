@@ -29,35 +29,51 @@
     "ormiDeployName": "erc-8004-agent-arbitrum",
     "status": "live"
   },
-  "x-layer": {
+  "xlayer": {
     "address": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
-    "startBlock": null,
+    "startBlock": 48428000,
     "ormiDeployName": "erc-8004-agent-xlayer",
-    "status": "pending",
+    "ormiNetwork": "xlayer",
+    "provider": "goldsky",
+    "goldskyDeployName": "erc-8004-agent-xlayer",
+    "goldskyVersion": "1.0.0",
+    "goldskyTag": "prod",
+    "goldskyNetwork": "x1",
+    "goldskyProjectId": "project_cmma0eekxnc4e01vt9klkbya9",
+    "graphqlEndpoint": "https://api.goldsky.com/api/public/project_cmma0eekxnc4e01vt9klkbya9/subgraphs/erc-8004-agent-xlayer/prod/gn",
+    "status": "removed",
+    "note": "Eliminado de Goldsky jun 2026; restaurar en otra cuenta con deploy:xlayer-goldsky",
     "chainId": 196,
     "priority": "alta"
   },
   "celo": {
     "address": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
-    "startBlock": null,
+    "startBlock": 58396724,
     "ormiDeployName": "erc-8004-agent-celo",
-    "status": "pending",
+    "provider": "goldsky",
+    "goldskyDeployName": "erc-8004-agent-celo",
+    "goldskyVersion": "1.0.0",
+    "goldskyTag": "prod",
+    "goldskyProjectId": "project_cmma0eekxnc4e01vt9klkbya9",
+    "graphqlEndpoint": null,
+    "status": "removed",
+    "note": "Eliminado de Goldsky jun 2026; redeploy con npm run deploy:celo-goldsky",
     "chainId": 42220,
     "priority": "alta"
   },
   "gnosis": {
     "address": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
-    "startBlock": null,
+    "startBlock": 44505010,
     "ormiDeployName": "erc-8004-agent-gnosis",
-    "status": "pending",
+    "status": "live",
     "chainId": 100,
     "priority": "media-alta"
   },
   "optimism": {
     "address": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
-    "startBlock": null,
+    "startBlock": 147514947,
     "ormiDeployName": "erc-8004-agent-optimism",
-    "status": "pending",
+    "status": "live",
     "chainId": 10,
     "priority": "baja"
   }

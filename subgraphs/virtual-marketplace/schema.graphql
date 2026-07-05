@@ -1,0 +1,111 @@
+type VirtualAcpJob @entity(immutable: true) {
+  id: ID!
+  jobId: BigInt!
+  client: Bytes!
+  provider: Bytes!
+  evaluator: Bytes
+  expiredAt: BigInt!
+  hook: Bytes
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type VirtualAcpJobStatus @entity(immutable: true) {
+  id: ID!
+  jobId: BigInt!
+  statusType: String!
+  actor: Bytes
+  reason: Bytes
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type VirtualAcpDelivery @entity(immutable: true) {
+  id: ID!
+  jobId: BigInt!
+  provider: Bytes!
+  deliverable: Bytes!
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type VirtualAcpPayment @entity(immutable: true) {
+  id: ID!
+  eventType: String!
+  jobId: BigInt!
+  account: Bytes
+  amount: BigInt!
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type VirtualAcpBudget @entity(immutable: true) {
+  id: ID!
+  jobId: BigInt!
+  budget: BigInt!
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type VirtualBondLaunch @entity(immutable: true) {
+  id: ID!
+  token: Bytes!
+  pair: Bytes!
+  launchIndex: BigInt!
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type VirtualAgentGraduation @entity(immutable: true) {
+  id: ID!
+  token: Bytes!
+  agentToken: Bytes!
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type VirtualAgentPersona @entity(immutable: true) {
+  id: ID!
+  virtualId: BigInt!
+  token: Bytes!
+  dao: Bytes!
+  tba: Bytes!
+  veToken: Bytes!
+  lp: Bytes!
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type VirtualAgentApplication @entity(immutable: true) {
+  id: ID!
+  applicationId: BigInt!
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}

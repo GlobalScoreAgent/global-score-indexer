@@ -1,0 +1,67 @@
+{
+  "base": {
+    "chainId": 8453,
+    "network": "base",
+    "ormiDeployName": "virtual-acp-base",
+    "provider": "goldsky",
+    "goldskyDeployName": "virtual-acp-base",
+    "goldskyVersion": "1.0.0",
+    "goldskyTag": "prod",
+    "goldskyProjectId": "project_cmma0eekxnc4e01vt9klkbya9",
+    "graphqlEndpoint": "https://api.goldsky.com/api/public/project_cmma0eekxnc4e01vt9klkbya9/subgraphs/virtual-acp-base/prod/gn",
+    "status": "migrating",
+    "versionLabel": "v1.0.0",
+    "note": "Migrado de Ormi a Goldsky jun 2026; sync inicial puede tardar (bonding ~1.6M txs)",
+    "startBlockPolicy": "acp_aligned",
+    "startBlockPolicyNote": "Bonding y AgentFactory indexan desde 44427015 (alineado con ACP Core), no desde deploy nov 2024.",
+    "contracts": {
+      "acpCoreProxy": {
+        "address": "0x238E541BfefD82238730D00a2208E5497F1832E0",
+        "implementation": "0x8e86FbEf4a4c927561cb6447cEd77ffFbf3B77BC",
+        "implementationName": "AgenticCommerceV3",
+        "proxyType": "eip1967",
+        "startBlock": 44427015,
+        "startBlockNote": "Primera transacción al proxy ACP Core (abr 2026). Fuente: Base Blockscout.",
+        "approxTxCount": 1888,
+        "abi": "AgenticCommerceV3.abi.json"
+      },
+      "fundTransferHook": {
+        "address": "0x90717828D78731313CB350D6a58b0f91668Ea702",
+        "startBlock": null,
+        "status": "unverified_blockscout",
+        "note": "Publicado en whitepaper ACP v2. ABI no verificada en Blockscout; evaluar dataSource en fase implementación. JobCreated.hook referencia hooks on-chain.",
+        "abi": null
+      },
+      "bondingProxy": {
+        "address": "0xF66DeA7b3e897cD44A5a231c61B6B4423d613259",
+        "implementation": "0xC9A91ccACFdc0001e2c41a56a75384598b70B89F",
+        "implementationName": "Bonding",
+        "proxyType": "eip1967",
+        "startBlock": 44427015,
+        "startBlockNote": "Alineado con ACP (acp_aligned). Deploy original nov 2024 en bloque 21841737; sin graduaciones previas a abr 2026.",
+        "approxTxCount": 1688705,
+        "abi": "Bonding.abi.json"
+      },
+      "agentFactoryProxy": {
+        "address": "0x71B8EFC8BCaD65a5D9386D07f2Dff57ab4EAf533",
+        "implementation": "0xfd8c35798eAA6fF8d1902f1B804d3341df09e895",
+        "implementationName": "AgentFactoryV3",
+        "proxyType": "eip1967",
+        "startBlock": 44427015,
+        "startBlockNote": "Alineado con ACP (acp_aligned). Deploy original en bloque 21841409.",
+        "approxTxCount": 39,
+        "abi": "AgentFactoryV3.abi.json"
+      }
+    },
+    "legacy": {
+      "acpV1Modular": {
+        "note": "Repos agent-commerce-protocol (ACPRouter + módulos) no coinciden 1:1 con el despliegue Base actual (AgenticCommerceV3 monolítico). No indexar ACP v1 salvo hallazgo de volumen relevante.",
+        "indexInMvp": false
+      },
+      "bondingPurchases": {
+        "note": "buy()/sell() en Bonding no emiten eventos dedicados; señal de compra vía Launched + actividad en FRouter/FPair (fuera de MVP inicial).",
+        "indexInMvp": false
+      }
+    }
+  }
+}

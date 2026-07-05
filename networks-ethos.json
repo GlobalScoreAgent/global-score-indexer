@@ -1,0 +1,36 @@
+{
+  "base": {
+    "chainId": 8453,
+    "network": "base",
+    "provider": "goldsky",
+    "goldskyDeployName": "ethos-network-base",
+    "goldskyVersion": "1.0.1",
+    "goldskyTag": "prod",
+    "goldskyProjectId": "project_cmma0eekxnc4e01vt9klkbya9",
+    "graphqlEndpoint": "https://api.goldsky.com/api/public/project_cmma0eekxnc4e01vt9klkbya9/subgraphs/ethos-network-base/prod/gn",
+    "status": "live",
+    "note": "Ethos Network reputation signals on Base; deployed jun 2026",
+    "startBlocks": {
+      "EthosProfile": 26984375,
+      "EthosReview": 26984375,
+      "EthosVouch": 26984375,
+      "EthosAttestation": 26984375,
+      "EthosSlash": 31980000,
+      "ReputationMarket": 26984375,
+      "EthosBroker": 33000000,
+      "EthosBond": 33000000,
+      "EthosProject": 33000000
+    },
+    "contracts": {
+      "EthosProfile": "0x209820B843900Ef77BD639455cDE15F38A252a36",
+      "EthosReview": "0x6D3A8Fd5cF89f9a429BFaDFd970968F646AFF325",
+      "EthosVouch": "0xD89E6B7687f862dd6D24B3B2D4D0dec6A89A6fdd",
+      "EthosAttestation": "0x27499D9A439D1c7B4538f247625cc7aA159D3c14",
+      "EthosSlash": "0xB2C41DebA270E1eA6abBe0e2fA70432630634a59",
+      "ReputationMarket": "0xC26F339F4E46C776853b1c190eC17173DBe059Bf",
+      "EthosBroker": "0x5fab43B6E906F05d5D5e9D4b0582dd7b4Eedc7E7",
+      "EthosBond": "0x21380B24Ee8B4A8D809A5049D0a9Ac047828384A",
+      "EthosProject": "0x8B92d27846559Abd7CEE0c01435a35f3d7731C35"
+    }
+  }
+}

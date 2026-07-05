@@ -1,0 +1,47 @@
+# ERC-8183 Agentic Commerce — BSC (BNB Agent SDK APEX)
+# Deploy Ormi: erc-8183-commerce-bsc
+# Valores en networks-8183.json
+specVersion: 1.3.0
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: AgenticCommerce
+    network: bsc
+    source:
+      address: "0xea4daa3100a767e86fded867729ae7446476eba6"
+      abi: AgenticCommerceV3
+      startBlock: 102000000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - Erc8183Job
+        - Erc8183JobStatus
+        - Erc8183Delivery
+        - Erc8183Payment
+        - Erc8183Budget
+      abis:
+        - name: AgenticCommerceV3
+          file: ../../abis/erc8183/AgenticCommerceV3.abi.json
+      eventHandlers:
+        - event: JobCreated(indexed uint256,indexed address,indexed address,address,uint256,address)
+          handler: handleJobCreated
+        - event: JobFunded(indexed uint256,indexed address,uint256)
+          handler: handleJobFunded
+        - event: BudgetSet(indexed uint256,uint256)
+          handler: handleBudgetSet
+        - event: JobSubmitted(indexed uint256,indexed address,bytes32)
+          handler: handleJobSubmitted
+        - event: JobCompleted(indexed uint256,indexed address,bytes32)
+          handler: handleJobCompleted
+        - event: JobRejected(indexed uint256,indexed address,bytes32)
+          handler: handleJobRejected
+        - event: JobExpired(indexed uint256)
+          handler: handleJobExpired
+        - event: PaymentReleased(indexed uint256,indexed address,uint256)
+          handler: handlePaymentReleased
+        - event: Refunded(indexed uint256,indexed address,uint256)
+          handler: handleRefunded
+      file: ./src/mapping.ts

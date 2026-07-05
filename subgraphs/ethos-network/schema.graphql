@@ -1,0 +1,160 @@
+type EthosProfile @entity(immutable: false) {
+  id: ID!
+  profileId: BigInt!
+  createdAt: BigInt!
+  archived: Boolean!
+  isMock: Boolean!
+  invitedByProfileId: BigInt
+  availableInvites: BigInt!
+  addressCount: Int!
+  reviewCountGiven: Int!
+  reviewCountReceived: Int!
+  vouchCountGiven: Int!
+  vouchCountReceived: Int!
+  totalVouchedReceived: BigInt!
+  attestationCount: Int!
+  addresses: [EthosProfileAddress!]! @derivedFrom(field: "profile")
+  reviewsGiven: [EthosReview!]! @derivedFrom(field: "authorProfile")
+  reviewsReceived: [EthosReview!]! @derivedFrom(field: "subjectProfile")
+  vouchesGiven: [EthosVouch!]! @derivedFrom(field: "authorProfile")
+  vouchesReceived: [EthosVouch!]! @derivedFrom(field: "subjectProfile")
+  attestations: [EthosAttestation!]! @derivedFrom(field: "profile")
+  slashesAuthored: [EthosSlash!]! @derivedFrom(field: "authorProfile")
+  slashesReceived: [EthosSlash!]! @derivedFrom(field: "subjectProfile")
+  reputationMarkets: [EthosReputationMarket!]! @derivedFrom(field: "profile")
+  brokerPosts: [EthosBrokerPost!]! @derivedFrom(field: "authorProfile")
+  projectsOwned: [EthosProject!]! @derivedFrom(field: "ownerProfile")
+  bondsAuthored: [EthosBond!]! @derivedFrom(field: "authorProfile")
+}
+
+type EthosProfileAddress @entity(immutable: false) {
+  id: ID!
+  profile: EthosProfile!
+  address: Bytes!
+  claimedAt: BigInt!
+  status: String!
+}
+
+type EthosAttestation @entity(immutable: false) {
+  id: ID!
+  attestationId: BigInt!
+  service: String!
+  account: String!
+  evidence: String!
+  createdAt: BigInt!
+  archived: Boolean!
+  profile: EthosProfile!
+}
+
+type EthosReview @entity(immutable: false) {
+  id: ID!
+  reviewId: BigInt!
+  score: String!
+  author: Bytes!
+  authorProfile: EthosProfile!
+  subject: Bytes!
+  subjectProfile: EthosProfile
+  attestationHash: Bytes
+  comment: String
+  metadata: String
+  createdAt: BigInt!
+  archived: Boolean!
+}
+
+type EthosVouch @entity(immutable: false) {
+  id: ID!
+  vouchId: BigInt!
+  balance: BigInt!
+  archived: Boolean!
+  unhealthy: Boolean!
+  vouchedAt: BigInt!
+  unvouchedAt: BigInt
+  comment: String
+  metadata: String
+  authorProfile: EthosProfile!
+  subjectProfile: EthosProfile!
+}
+
+type EthosSlash @entity(immutable: false) {
+  id: ID!
+  slashId: BigInt!
+  amount: BigInt!
+  createdAt: BigInt!
+  archived: Boolean!
+  slashType: Int!
+  comment: String
+  metadata: String
+  authorProfile: EthosProfile!
+  subjectProfile: EthosProfile
+  subject: Bytes!
+  attestationHash: Bytes
+}
+
+type EthosReputationMarket @entity(immutable: false) {
+  id: ID!
+  profileId: BigInt!
+  graduated: Boolean!
+  voteTrust: BigInt!
+  voteDistrust: BigInt!
+  trustPrice: BigInt!
+  distrustPrice: BigInt!
+  liquidity: BigInt!
+  basePrice: BigInt!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+  profile: EthosProfile!
+  trades: [EthosMarketTrade!]! @derivedFrom(field: "market")
+}
+
+type EthosMarketTrade @entity(immutable: true) {
+  id: ID!
+  profileId: BigInt!
+  trader: Bytes!
+  isPositive: Boolean!
+  isBuy: Boolean!
+  amount: BigInt!
+  funds: BigInt!
+  timestamp: BigInt!
+  txHash: Bytes!
+  market: EthosReputationMarket!
+}
+
+type EthosBrokerPost @entity(immutable: false) {
+  id: ID!
+  postId: BigInt!
+  authorProfileId: BigInt!
+  type: String!
+  title: String!
+  description: String!
+  cost: String!
+  tags: String!
+  level: Int!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+  txHash: Bytes!
+  authorProfile: EthosProfile!
+}
+
+type EthosProject @entity(immutable: false) {
+  id: ID!
+  projectId: BigInt!
+  userkey: String!
+  status: String!
+  description: String!
+  name: String!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+  ownerProfile: EthosProfile!
+}
+
+type EthosBond @entity(immutable: false) {
+  id: ID!
+  bondId: BigInt!
+  amount: String!
+  bondType: String!
+  amountType: String!
+  status: String!
+  createdAt: BigInt!
+  releasedAt: BigInt
+  authorProfile: EthosProfile!
+}

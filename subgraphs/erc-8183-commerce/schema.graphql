@@ -1,0 +1,69 @@
+type Erc8183Job @entity(immutable: true) {
+  id: ID!
+  jobId: BigInt!
+  contractAddress: Bytes!
+  implementation: String!
+  client: Bytes!
+  provider: Bytes!
+  evaluator: Bytes
+  expiredAt: BigInt!
+  hook: Bytes
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type Erc8183JobStatus @entity(immutable: true) {
+  id: ID!
+  jobId: BigInt!
+  contractAddress: Bytes!
+  statusType: String!
+  actor: Bytes
+  reason: Bytes
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type Erc8183Delivery @entity(immutable: true) {
+  id: ID!
+  jobId: BigInt!
+  contractAddress: Bytes!
+  provider: Bytes!
+  deliverable: Bytes!
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type Erc8183Payment @entity(immutable: true) {
+  id: ID!
+  eventType: String!
+  jobId: BigInt!
+  contractAddress: Bytes!
+  account: Bytes
+  amount: BigInt!
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type Erc8183Budget @entity(immutable: true) {
+  id: ID!
+  jobId: BigInt!
+  contractAddress: Bytes!
+  budget: BigInt!
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}

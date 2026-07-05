@@ -1,0 +1,87 @@
+# Olas Mech Marketplace — ingesta cruda (MVP)
+# Métricas y scoring se calculan en Supabase, no en el subgraph.
+
+type OlasMech @entity(immutable: false) {
+  id: ID! # {network}-{mechAddress}
+  mech: Bytes!
+  serviceId: BigInt!
+  mechFactory: Bytes!
+  chainId: String!
+  firstSeenAt: BigInt!
+  lastActivityAt: BigInt!
+}
+
+type OlasMarketplaceRequest @entity(immutable: true) {
+  id: ID! # {network}-{requestId}
+  requestId: Bytes!
+  priorityMech: Bytes!
+  requester: Bytes!
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type OlasMarketplaceDelivery @entity(immutable: true) {
+  id: ID! # {network}-{requestId}-{deliveryMech}-{logIndex}
+  requestId: Bytes!
+  deliveryMech: Bytes!
+  requester: Bytes!
+  delivered: Boolean!
+  numDeliveries: BigInt!
+  deliverySource: String! # MarketplaceDelivery | MarketplaceDeliveryWithSignatures
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type OlasDeliver @entity(immutable: true) {
+  id: ID! # {network}-{txHash}-{logIndex}
+  requestId: Bytes!
+  mech: Bytes!
+  mechServiceMultisig: Bytes!
+  deliveryRate: BigInt!
+  data: Bytes!
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type OlasBalanceEvent @entity(immutable: true) {
+  id: ID! # {network}-{txHash}-{logIndex}
+  eventType: String! # Deposit | RequesterBalanceAdjusted | MechBalanceAdjusted | Withdraw | Drained | RequesterCreditsRedeemed
+  paymentType: String! # native | olas | usdc | nvm | nvm_usdc
+  balanceTracker: Bytes!
+  account: Bytes
+  mech: Bytes
+  requester: Bytes
+  token: Bytes
+  amount: BigInt
+  deliveryRate: BigInt
+  balance: BigInt
+  rateDiff: BigInt
+  collectedFees: BigInt
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}
+
+type OlasKarmaChange @entity(immutable: true) {
+  id: ID! # {network}-{txHash}-{logIndex}
+  changeType: String! # mech | requesterMech
+  mech: Bytes!
+  requester: Bytes
+  karmaChange: BigInt!
+  chainId: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  txHash: Bytes!
+  logIndex: BigInt!
+}

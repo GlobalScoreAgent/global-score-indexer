@@ -1,5 +1,7 @@
 # Propuesta de Chains para Agregar al Indexing
 
+> **Estado jul 2026:** import prod ERC-8004 en ETH, Base, BSC, Polygon, Arbitrum vía **Agent0** (The Graph). **Ormi retirado.** Chains fuera del pack Agent0 (Gnosis, Optimism, X Layer, Celo) requieren subgraph Agent0 o decisión de producto antes de reactivar. Ver [`arquitectura-grafos-gsa.md`](arquitectura-grafos-gsa.md).
+
 **Proyecto:** Global Score Agent (HUMI Index + WAMI)  
 **Fecha:** 21 de junio de 2026  
 **Objetivo:** Expandir la cobertura de chains con actividad real de ERC-8004 para mejorar la calidad y representatividad del índice.
@@ -135,14 +137,16 @@ No se requieren cambios en `src/mapping.ts` ni en `schema.graphql` para estas ch
 | — | BSC | 56 | `bsc` | `erc-8004-agent-bsc` | 46850000 | live |
 | — | Polygon | 137 | `matic` | `erc-8004-agent-poly` | 68450000 | live |
 | — | Arbitrum | 42161 | `arbitrum-one` | `erc-8004-agent-arbitrum` | 245348700 | live |
-| 1 | X Layer | 196 | `x-layer` (verificar) | `erc-8004-agent-xlayer` | TBD | pendiente |
-| 2 | Celo | 42220 | `celo` | `erc-8004-agent-celo` | TBD | pendiente |
-| 3 | Gnosis | 100 | `gnosis` | `erc-8004-agent-gnosis` | TBD | pendiente |
-| 4 | Optimism | 10 | `optimism` | `erc-8004-agent-optimism` | TBD | pendiente |
+| 1 | X Layer | 196 | `xlayer` | `erc-8004-agent-xlayer` | 48428000 | live |
+| — | Celo | 42220 | `celo` | `erc-8004-agent-celo` (Goldsky) | 58396724 | live (Goldsky) |
+| 2 | Gnosis | 100 | `gnosis` | `erc-8004-agent-gnosis` | 44505010 | live |
+| 3 | Optimism | 10 | `optimism` | `erc-8004-agent-optimism` | 147514947 | live |
 
-**startBlock TBD:** calcular bloque aproximado de enero 2026 (cuando se desplegó ERC-8004 en esa red). No usar genesis de la chain.
+**startBlock:** bloque ~enero 2026 cuando aplique; si el deploy ERC-8004 fue posterior, usar bloque de deploy (Celo `58396724`, Gnosis `44505010`, Optimism `147514947`). No usar genesis de la chain.
 
-**Network names:** confirmar identificador exacto en [Ormi Docs](https://ormilabs.com/docs) antes de desplegar, especialmente para X Layer.
+**Celo en Ormi:** no soportada. Desplegada en **Goldsky** (`erc-8004-agent-celo/prod`). Endpoint en `networks.json`.
+
+**Network names:** X Layer `xlayer`; Gnosis `gnosis`; Optimism `optimism` (Mainnet); Celo `celo` (Goldsky). Testnet OP: `optimism-sepolia`.
 
 ### Checklist por chain nueva
 

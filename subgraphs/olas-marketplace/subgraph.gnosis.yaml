@@ -1,0 +1,150 @@
+# Olas Mech Marketplace — Gnosis
+# Deploy Ormi: olas-mech-gnosis (separado de erc-8004-agent-gnosis)
+# Valores en networks-olas.json
+specVersion: 1.3.0
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: MechMarketplace
+    network: gnosis
+    source:
+      address: "0x735FAAb1c4Ec41128c367AFb5c3baC73509f70bB"
+      abi: MechMarketplace
+      startBlock: 38661963
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - OlasMech
+        - OlasMarketplaceRequest
+        - OlasMarketplaceDelivery
+        - OlasDeliver
+      abis:
+        - name: MechMarketplace
+          file: ../../abis/olas/MechMarketplace.abi.json
+      eventHandlers:
+        - event: CreateMech(indexed address,indexed uint256,indexed address)
+          handler: handleCreateMech
+        - event: MarketplaceRequest(indexed address,indexed address,uint256,bytes32[],bytes[])
+          handler: handleMarketplaceRequest
+        - event: MarketplaceDelivery(indexed address,address[],uint256,bytes32[],bool[])
+          handler: handleMarketplaceDelivery
+        - event: MarketplaceDeliveryWithSignatures(indexed address,indexed address,uint256,bytes32[])
+          handler: handleMarketplaceDeliveryWithSignatures
+        - event: Deliver(indexed address,indexed address,bytes32,uint256,bytes)
+          handler: handleDeliver
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: Karma
+    network: gnosis
+    source:
+      address: "0x2C602C7B590ABFc148d8c7c5e4d58c56Be1d304a"
+      abi: Karma
+      startBlock: 38661963
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - OlasKarmaChange
+      abis:
+        - name: Karma
+          file: ../../abis/olas/Karma.abi.json
+      eventHandlers:
+        - event: MechKarmaChanged(indexed address,int256)
+          handler: handleMechKarmaChanged
+        - event: RequesterMechKarmaChanged(indexed address,indexed address,int256)
+          handler: handleRequesterMechKarmaChanged
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: BalanceTrackerNative
+    network: gnosis
+    source:
+      address: "0x21cE6799A22A3Da84B7c44a814a9c79ab1d2A50D"
+      abi: BalanceTracker
+      startBlock: 38661963
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - OlasBalanceEvent
+      abis:
+        - name: BalanceTracker
+          file: ../../abis/olas/BalanceTrackerFixedPriceNative.abi.json
+      eventHandlers:
+        - event: Deposit(indexed address,indexed address,uint256)
+          handler: handleDeposit
+        - event: RequesterBalanceAdjusted(indexed address,uint256,uint256)
+          handler: handleRequesterBalanceAdjusted
+        - event: MechBalanceAdjusted(indexed address,uint256,uint256,uint256)
+          handler: handleMechBalanceAdjusted
+        - event: Withdraw(indexed address,indexed address,uint256)
+          handler: handleWithdraw
+        - event: Drained(indexed address,uint256)
+          handler: handleDrained
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: BalanceTrackerOlas
+    network: gnosis
+    source:
+      address: "0x53Bd432516707a5212A70216284a99A563aAC1D1"
+      abi: BalanceTracker
+      startBlock: 38661963
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - OlasBalanceEvent
+      abis:
+        - name: BalanceTracker
+          file: ../../abis/olas/BalanceTrackerFixedPriceToken.abi.json
+      eventHandlers:
+        - event: Deposit(indexed address,indexed address,uint256)
+          handler: handleDepositOlas
+        - event: RequesterBalanceAdjusted(indexed address,uint256,uint256)
+          handler: handleRequesterBalanceAdjustedOlas
+        - event: MechBalanceAdjusted(indexed address,uint256,uint256,uint256)
+          handler: handleMechBalanceAdjustedOlas
+        - event: Withdraw(indexed address,indexed address,uint256)
+          handler: handleWithdrawOlas
+        - event: Drained(indexed address,uint256)
+          handler: handleDrainedOlas
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: BalanceTrackerNvm
+    network: gnosis
+    source:
+      address: "0x7D686bD1fD3CFF6E45a40165154D61043af7D67c"
+      abi: BalanceTrackerNvm
+      startBlock: 38661963
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - OlasBalanceEvent
+      abis:
+        - name: BalanceTrackerNvm
+          file: ../../abis/olas/BalanceTrackerNvmSubscriptionNative.abi.json
+      eventHandlers:
+        - event: Deposit(indexed address,indexed address,uint256)
+          handler: handleDepositNvm
+        - event: RequesterBalanceAdjusted(indexed address,uint256,uint256)
+          handler: handleRequesterBalanceAdjustedNvm
+        - event: MechBalanceAdjusted(indexed address,uint256,uint256,uint256)
+          handler: handleMechBalanceAdjustedNvm
+        - event: Withdraw(indexed address,indexed address,uint256)
+          handler: handleWithdrawNvm
+        - event: Drained(indexed address,uint256)
+          handler: handleDrainedNvm
+        - event: RequesterCreditsRedeemed(indexed address,uint256)
+          handler: handleRequesterCreditsRedeemedNvm
+      file: ./src/mapping.ts

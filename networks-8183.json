@@ -1,0 +1,62 @@
+{
+  "base": {
+    "chainId": 8453,
+    "network": "base",
+    "ormiDeployName": "erc-8183-commerce-base",
+    "status": "live",
+    "versionLabel": "v1.0.0",
+    "graphqlEndpoint": "https://subgraph.api.ormilabs.com/api/public/f46db6cd-eefe-4019-b10d-f48b2f2a9ee6/subgraphs/erc-8183-commerce-base/v1.0.0/gn",
+    "contracts": {
+      "ufxAgenticCommerceHooked": {
+        "address": "0x1b32B85c914ea30E81F08550c1EBFC5b9d32a855",
+        "implementationLabel": "ufx_agentic_commerce_hooked",
+        "startBlock": 46471674,
+        "startBlockNote": "Primer JobCreated on-chain (may 2026). Fuente: Base Blockscout logs.",
+        "abi": "AgenticCommerceHooked.abi.json",
+        "jobCreatedSignatureNote": "UFX: JobCreated(indexed jobId, indexed client, provider, evaluator, expiredAt, string description, hook)"
+      }
+    },
+    "excluded": {
+      "virtualAcpCore": {
+        "address": "0x238E541BfefD82238730D00a2208E5497F1832E0",
+        "reason": "Indexado en virtual-acp-base; evitar duplicidad en GSA.",
+        "subgraph": "virtual-acp-base"
+      },
+      "referenceAcpCore": {
+        "address": "0x16213AB6a660A24f36d4F8DdACA7a3d0856A8AF5",
+        "reason": "0 transacciones en Base (jun 2026)."
+      }
+    }
+  },
+  "bsc": {
+    "chainId": 56,
+    "network": "bsc",
+    "ormiDeployName": "erc-8183-commerce-bsc",
+    "provider": "goldsky",
+    "goldskyDeployName": "erc-8183-commerce-bsc",
+    "goldskyVersion": "1.0.0",
+    "goldskyTag": "prod",
+    "goldskyProjectId": "project_cmma0eekxnc4e01vt9klkbya9",
+    "graphqlEndpoint": "https://api.goldsky.com/api/public/project_cmma0eekxnc4e01vt9klkbya9/subgraphs/erc-8183-commerce-bsc/prod/gn",
+    "status": "migrating",
+    "versionLabel": "v1.0.0",
+    "note": "Migrado de Ormi a Goldsky jun 2026",
+    "contracts": {
+      "bnbAgenticCommerceApex": {
+        "address": "0xea4daa3100a767e86fded867729ae7446476eba6",
+        "implementation": "0x2788d06576Ef83fDBEb00fB848E9fD896fc259E6",
+        "implementationLabel": "bnb_agentic_commerce_apex",
+        "proxyType": "eip1967",
+        "startBlock": 102000000,
+        "startBlockNote": "Estimado pre-actividad BNB Agent SDK mainnet (~mar 2026). Refinar con BscScan Contract Creation si hace falta histórico completo.",
+        "approxTxCount": 217000,
+        "abi": "AgenticCommerceV3.abi.json"
+      }
+    },
+    "auxiliaryNotIndexed": {
+      "evaluatorRouter": "0x51895229e12f9876011789b04f8698af06ccd6da",
+      "optimisticPolicy": "0x9c01845705b3078aa2e8cff7520a6376fd766de5",
+      "note": "Router/policy fuera de MVP; el kernel emite JobCompleted/JobRejected con el resultado final."
+    }
+  }
+}

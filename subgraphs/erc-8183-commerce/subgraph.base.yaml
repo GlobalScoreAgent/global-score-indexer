@@ -1,0 +1,47 @@
+# ERC-8183 Agentic Commerce — Base (UFX)
+# Deploy Ormi: erc-8183-commerce-base
+# Valores en networks-8183.json
+specVersion: 1.3.0
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: AgenticCommerce
+    network: base
+    source:
+      address: "0x1b32B85c914ea30E81F08550c1EBFC5b9d32a855"
+      abi: AgenticCommerceV3
+      startBlock: 46471674
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - Erc8183Job
+        - Erc8183JobStatus
+        - Erc8183Delivery
+        - Erc8183Payment
+        - Erc8183Budget
+      abis:
+        - name: AgenticCommerceV3
+          file: ../../abis/erc8183/AgenticCommerceHooked.abi.json
+      eventHandlers:
+        - event: JobCreated(indexed uint256,indexed address,address,address,uint256,string,address)
+          handler: handleJobCreated
+        - event: JobFunded(indexed uint256,indexed address,uint256)
+          handler: handleJobFunded
+        - event: BudgetSet(indexed uint256,uint256)
+          handler: handleBudgetSet
+        - event: JobSubmitted(indexed uint256,indexed address,bytes32)
+          handler: handleJobSubmitted
+        - event: JobCompleted(indexed uint256,indexed address,bytes32)
+          handler: handleJobCompleted
+        - event: JobRejected(indexed uint256,indexed address,bytes32)
+          handler: handleJobRejected
+        - event: JobExpired(indexed uint256)
+          handler: handleJobExpired
+        - event: PaymentReleased(indexed uint256,indexed address,uint256)
+          handler: handlePaymentReleased
+        - event: Refunded(indexed uint256,indexed address,uint256)
+          handler: handleRefunded
+      file: ./src/mapping.ts
