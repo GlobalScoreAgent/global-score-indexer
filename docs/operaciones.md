@@ -13,7 +13,9 @@ Runbook para desarrolladores que despliegan o mantienen subgraphs en **Goldsky**
 - Goldsky CLI: `npm install -g @goldskycom/cli`
 - API key en [Goldsky Project Settings](https://app.goldsky.com)
 - API key The Graph (backend Supabase `graphs.graph` — consultas Agent0)
-- Copiar `.env.example` → `.env` con `GOLDSKY_API_KEY`
+- Copiar `.env.example` → `.env` con:
+  - `GOLDSKY_API_KEY` — cuenta productos (Ethos, Virtual, ERC-8183)
+  - `GOLDSKY_ERC8004_API_KEY` — cuenta ERC-8004 extension (Celo, X Layer, Gnosis)
 
 ---
 
@@ -50,15 +52,77 @@ Configuración en BD: `graphs.subgraph.url`, `graphs.entities.query_data`. Detal
 
 ---
 
-## Goldsky — proyecto Global Score Agent
+**Chains ERC-8004 extension** (Celo, X Layer, Gnosis): subgraphs propios en **segunda cuenta Goldsky** — ver sección abajo.
 
-Proyecto: `project_cmma0eekxnc4e01vt9klkbya9`. Patrón de endpoint:
+---
+
+## Goldsky — cuenta productos (Ethos, Virtual, ERC-8183)
+
+Proyecto: `project_cmma0eekxnc4e01vt9klkbya9`. Auth: `GOLDSKY_API_KEY`.
 
 ```text
 https://api.goldsky.com/api/public/project_cmma0eekxnc4e01vt9klkbya9/subgraphs/<nombre>/prod/gn
 ```
 
-### Subgraphs en Goldsky (jun 2026)
+### Subgraphs desplegados
+
+| Subgraph | Chain | npm deploy |
+|----------|-------|------------|
+| `ethos-network-base` | Base | `deploy:ethos-base-goldsky` |
+| `virtual-acp-base` | Base | `deploy:virtual-base-goldsky` |
+| `erc-8183-commerce-bsc` | BSC | `deploy:8183-bsc-goldsky` |
+
+```powershell
+goldsky login --token $env:GOLDSKY_API_KEY
+npm run deploy:ethos-base-goldsky
+```
+
+---
+
+## Goldsky — cuenta ERC-8004 extension (Celo, X Layer, Gnosis)
+
+| Campo | Valor |
+|-------|--------|
+| Team ID | `cmra5eyfa7hgk01vpdlad0gty` |
+| Project ID | `project_cmra5abu7bwp901xf5kbz3wqr` |
+| Auth | `GOLDSKY_ERC8004_API_KEY` en `.env` |
+
+```text
+https://api.goldsky.com/api/public/project_cmra5abu7bwp901xf5kbz3wqr/subgraphs/<nombre>/prod/gn
+```
+
+### Tabla de deploy
+
+| Chain | `network` en subgraph.yaml | startBlock | Deploy name | Endpoint |
+|-------|---------------------------|------------|-------------|----------|
+| Celo | `celo` | `58396724` | `erc-8004-agent-celo` | `…/erc-8004-agent-celo/prod/gn` |
+| X Layer | `x1` | `48428000` | `erc-8004-agent-xlayer` | `…/erc-8004-agent-xlayer/prod/gn` |
+| Gnosis | `gnosis` | `44505010` | `erc-8004-agent-gnosis` | `…/erc-8004-agent-gnosis/prod/gn` |
+
+**X Layer IDs:** prefijo GraphQL `x1-` (no `xlayer-`). Ver `entityIdPrefix` en [`networks.json`](../networks.json).
+
+### Checklist deploy por chain
+
+1. `goldsky login --token $env:GOLDSKY_ERC8004_API_KEY`
+2. Editar `subgraph.yaml` → `network` + `startBlock` en **ambos** dataSources (tabla arriba)
+3. `npm run codegen && npm run build`
+4. `npm run deploy:<chain>-goldsky` (o `goldsky subgraph deploy <name>/1.0.0 --path . --tag prod`)
+5. Si no usaste `--tag prod`: `npm run tag:<chain>-goldsky`
+6. Verificar:
+
+```graphql
+{ _meta { block { number } hasIndexingErrors } }
+{ agents(first: 1) { id name } }
+```
+
+7. Actualizar `networks.json` → `status: live` tras sync estable
+8. Monitor: [`scripts/monitor-goldsky-sync.ps1`](../scripts/monitor-goldsky-sync.ps1)
+
+**Celo:** alto volumen — sync inicial puede tardar horas.
+
+---
+
+## Goldsky — proyecto legacy (referencia jun 2026)
 
 | Subgraph | Chain slug | Manifest / path | npm deploy | startBlock |
 |----------|------------|-----------------|------------|------------|

@@ -1,6 +1,12 @@
 # Plantilla operativa: cambiar `network` y `startBlock` en ambos dataSources antes de cada deploy.
-# Un subgraph por chain (Ormi o Goldsky). Ver networks.json y docs/operaciones.md para valores por red.
-# Goldsky X Layer usa network `x1`; Ormi usa `xlayer`. Tras deploy Goldsky, restaurar network si redeployas Ormi en otra chain.
+# Un subgraph por chain en Goldsky (cuenta ERC-8004: project_cmra5abu7bwp901xf5kbz3wqr).
+# Ver networks.json y docs/operaciones.md.
+#
+# | Chain    | network  | startBlock |
+# |----------|----------|------------|
+# | Celo     | celo     | 58396724   |
+# | X Layer  | x1       | 48428000   |  (IDs: x1-{agentId})
+# | Gnosis   | gnosis   | 44505010   |
 specVersion: 1.3.0
 schema:
   file: ./schema.graphql
@@ -8,11 +14,11 @@ dataSources:
   # --- CONTRATO 1: IDENTITY REGISTRY (Registro de Agentes) ---
   - kind: ethereum
     name: AgentRegistry
-    network: x1
+    network: gnosis
     source:
       address: "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
       abi: AgentRegistry
-      startBlock: 48428000
+      startBlock: 44505010
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.9
@@ -31,11 +37,11 @@ dataSources:
   # --- CONTRATO 2: REPUTATION REGISTRY (Feedbacks) ---
   - kind: ethereum
     name: AgentReputation
-    network: x1
+    network: gnosis
     source:
       address: "0x8004BAa17C55a88189AE136b182e5fdA19dE9b63"
       abi: AgentRegistry 
-      startBlock: 48428000
+      startBlock: 44505010
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.9

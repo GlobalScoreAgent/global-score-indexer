@@ -62,9 +62,19 @@ Import diario vía Supabase `graphs.*`. Subgraph IDs y mapeo: [`docs/agent0-gsa-
 
 
 
-El código en la raíz del repo (`subgraph.yaml`, `src/mapping.ts`) es **referencia** y desarrollo local; no alimenta HUMI en prod.
+El código en la raíz del repo (`subgraph.yaml`, `src/mapping.ts`) es **referencia** y desarrollo local; no alimenta HUMI en prod (5 chains Agent0).
 
+## ERC-8004 extension — Goldsky (Celo, X Layer, Gnosis)
 
+Cuenta `project_cmra5abu7bwp901xf5kbz3wqr` · Auth: `GOLDSKY_ERC8004_API_KEY`
+
+| Chain | Subgraph | `network` |
+|-------|----------|-----------|
+| Celo | `erc-8004-agent-celo/prod` | `celo` |
+| X Layer | `erc-8004-agent-xlayer/prod` | `x1` (IDs `x1-*`) |
+| Gnosis | `erc-8004-agent-gnosis/prod` | `gnosis` |
+
+Deploy: [`docs/operaciones.md`](docs/operaciones.md) § Goldsky cuenta ERC-8004.
 
 ## Ethos Network (Goldsky)
 

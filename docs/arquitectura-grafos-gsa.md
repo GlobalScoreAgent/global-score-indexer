@@ -147,13 +147,14 @@ Contratos y start blocks: [`networks-olas.json`](../networks-olas.json). Spec de
 
 ### 3.3 Goldsky (subgraphs propios GSA)
 
-| Aspecto | Detalle |
-|---------|---------|
-| **Proyecto GSA** | `project_cmma0eekxnc4e01vt9klkbya9` |
-| **Patrón endpoint** | `https://api.goldsky.com/api/public/project_cmma0eekxnc4e01vt9klkbya9/subgraphs/<nombre>/prod/gn` |
-| **Desplegados (jul 2026)** | `ethos-network-base`, `virtual-acp-base`, `erc-8183-commerce-bsc` (y `erc-8183-commerce-base` si aplica) |
-| **Deploy** | `goldsky subgraph deploy` + tag `prod` |
-| **Auth deploy** | `GOLDSKY_API_KEY` en `.env` del indexer |
+Dos proyectos Goldsky (jul 2026):
+
+| Proyecto | Project ID | Uso | Auth `.env` |
+|----------|------------|-----|-------------|
+| **Productos** | `project_cmma0eekxnc4e01vt9klkbya9` | Ethos, Virtual, ERC-8183 | `GOLDSKY_API_KEY` |
+| **ERC-8004 extension** | `project_cmra5abu7bwp901xf5kbz3wqr` | Celo, X Layer, Gnosis | `GOLDSKY_ERC8004_API_KEY` |
+
+Patrón endpoint: `https://api.goldsky.com/api/public/<project_id>/subgraphs/<nombre>/prod/gn`
 
 ### 3.4 Ormi 0xGraph — retirado
 
@@ -168,7 +169,10 @@ Ormi fue el proveedor histórico (mar–jun 2026). **Ya no se usa.** Los scripts
 | Olas Gnosis | **Autonolas** `marketplace-gnosis` | idem |
 | Virtual Base | **Goldsky** `virtual-acp-base/prod` | `graphs.*` |
 | ERC-8183 Base / BSC | **Goldsky** `erc-8183-commerce-*` | `graphs.*` |
-| Ethos Base | **Goldsky** `ethos-network-base/prod` | Pendiente seed `graphs.entities` |
+| Ethos Base | **Goldsky** `ethos-network-base/prod` | `graphs.*` |
+| ERC-8004 Celo | **Goldsky** `erc-8004-agent-celo/prod` | Subgraph propio (cuenta extension) |
+| ERC-8004 X Layer | **Goldsky** `erc-8004-agent-xlayer/prod` | Subgraph propio; IDs `x1-*` |
+| ERC-8004 Gnosis | **Goldsky** `erc-8004-agent-gnosis/prod` | Subgraph propio (sin Agent0) |
 
 ### 3.6 Criterio de elección de fuente
 
@@ -286,15 +290,21 @@ Normalización: `graphs.normalize_batch_agent_erc`, `normalize_batch_feedback_er
 - `registrationFile` aporta name/description/image sin job URI en Supabase.
 - `value` feedback: escala `BigDecimal` → `on_chain_value` int128.
 
-#### B) Chains ERC-8004 fuera de Agent0 — fuera de import prod
+#### B) ERC-8004 extension — Goldsky (Celo, X Layer, Gnosis)
 
-Gnosis, Optimism, X Layer y Celo **no** tienen subgraph Agent0 en el pack de producción y **Ormi fue retirado**. No alimentan HUMI hasta que exista fuente Agent0 o decisión de producto de reactivar chain.
+Chains sin subgraph Agent0 en el pack de producción. Subgraphs propios en cuenta Goldsky `project_cmra5abu7bwp901xf5kbz3wqr`.
 
-| Chain | Estado |
-|-------|--------|
-| Gnosis, Optimism | Sin import prod (Ormi retirado) |
-| X Layer | **removed** jun 2026 |
-| Celo | **removed** jun 2026 |
+| Chain | Deploy | `network` | Endpoint |
+|-------|--------|-----------|----------|
+| Celo | `erc-8004-agent-celo/prod` | `celo` | `…/erc-8004-agent-celo/prod/gn` |
+| X Layer | `erc-8004-agent-xlayer/prod` | `x1` | `…/erc-8004-agent-xlayer/prod/gn` |
+| Gnosis | `erc-8004-agent-gnosis/prod` | `gnosis` | `…/erc-8004-agent-gnosis/prod/gn` |
+
+Metadatos: [`networks.json`](../networks.json). Deploy: [`operaciones.md`](operaciones.md) § Goldsky cuenta ERC-8004.
+
+#### C) Optimism — fuera de import prod
+
+Sin Agent0 ni deploy Goldsky activo (jul 2026).
 
 ### 6.2 Olas Mech Marketplace
 
